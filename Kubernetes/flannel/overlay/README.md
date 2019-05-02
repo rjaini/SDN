@@ -1,13 +1,13 @@
 # How to deploy Kubernetes on Windows with Flannel + VxLan
 * Requires Windows Server Insider Build 18301 or higher
 * Requires Flannel on Linux modifications:
-  * Ensure that Flannel on Linux has [VNI 4096](https://github.com/Microsoft/SDN/blob/master/Kubernetes/flannel/overlay/manifests/kube-flannel-example.yml#L130) set and [port 4789](https://github.com/Microsoft/SDN/blob/master/Kubernetes/flannel/overlay/manifests/kube-flannel-example.yml#L131)
-  * Ensure that Flannel on Linux has [network name](https://github.com/Microsoft/SDN/blob/master/Kubernetes/flannel/overlay/manifests/kube-flannel-example.yml#L108) set to "vxlan0"
+  * Ensure that Flannel on Linux has [VNI 4096](https://github.com/rjaini/SDN/blob/master/Kubernetes/flannel/overlay/manifests/kube-flannel-example.yml#L130) set and [port 4789](https://github.com/rjaini/SDN/blob/master/Kubernetes/flannel/overlay/manifests/kube-flannel-example.yml#L131)
+  * Ensure that Flannel on Linux has [network name](https://github.com/rjaini/SDN/blob/master/Kubernetes/flannel/overlay/manifests/kube-flannel-example.yml#L108) set to "vxlan0"
 * Download/Build the appropriate versions of Kubelet.exe and Kubectl.exe to c:\k
 * Build Kube Proxy from [PR 70896](https://github.com/kubernetes/kubernetes/pull/70896) and copy to c:\k
 * Copy Kubeconfig from Linux master to c:\k
 * Download the following files to c:\k
-  * [start.ps1](https://github.com/Microsoft/SDN/raw/master/Kubernetes/flannel/start.ps1) 
+  * [start.ps1](https://github.com/rjaini/SDN/raw/master/Kubernetes/flannel/start.ps1) 
   * [latest flanneld.exe](https://github.com/coreos/flannel/releases/)
 * run powershell c:\k\start.ps1 -ManagementIP <IPAddressOfTheCurrentNode> -NetworkMode overlay -ClusterCIDR <ClusterSubnet> -ServiceCIDR <ServiceSubnet>
 

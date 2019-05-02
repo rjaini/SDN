@@ -50,7 +50,7 @@ Min. Windows Operating System Version : 1809 (Tested).
     d. Usage
     ```
         cd  $env:HOMEDRIVE\$env:HOMEPATH
-        wget  https://raw.githubusercontent.com/Microsoft/SDN/master/Kubernetes/windows/KubeCluster.ps1 -o kubecluster.ps1
+        wget  https://raw.githubusercontent.com/rjaini/SDN/master/Kubernetes/windows/KubeCluster.ps1 -o kubecluster.ps1
 
         .\KubeCluster.ps1 -InstallPrerequisite -Config .\KubeCluster.json
     ```
@@ -72,14 +72,14 @@ Min. Windows Operating System Version : 1809 (Tested).
 
 ### Flannel VxLan
     ```
-   	wget  https://raw.githubusercontent.com/Microsoft/SDN/master/Kubernetes/windows/kubeadm/Kubecluster.json -o kubecluster.json
+   	wget  https://raw.githubusercontent.com/rjaini/SDN/master/Kubernetes/windows/kubeadm/Kubecluster.json -o kubecluster.json
     # Modify the required params
 	.\KubeCluster.ps1 -join -Config .\KubeCluster.json
     ```
 ### Flannel Bridge
     # Or input the file directly to the script to deploy the configuration in json
     ```
-	.\KubeCluster.ps1 -join -Config  https://raw.githubusercontent.com/Microsoft/SDN/master/Kubernetes/windows/kubeadm/Kubecluster.json
+	.\KubeCluster.ps1 -join -Config  https://raw.githubusercontent.com/rjaini/SDN/master/Kubernetes/windows/kubeadm/Kubecluster.json
 
     ```
 ## Reset the node

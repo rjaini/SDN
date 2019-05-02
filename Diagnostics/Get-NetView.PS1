@@ -66,7 +66,7 @@
             > Get-NetAdapterSriovVf -SwitchId 2
 
 .LINK
-    https://github.com/Microsoft/SDN
+    https://github.com/rjaini/SDN
 #>
 Param(
     [parameter(Mandatory=$false)]

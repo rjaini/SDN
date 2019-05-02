@@ -106,7 +106,7 @@ function SDNExpressUI {
                     <TextBlock Margin="10,0,0,0" TextWrapping="WrapWithOverflow">
                     <LineBreak/>
                     <Run Text="Physical switch configuration examples are "/>
-                    <Hyperlink Name="uri4" NavigateUri="https://github.com/Microsoft/SDN/tree/master/SwitchConfigExamples">available on Github.</Hyperlink><LineBreak/>
+                    <Hyperlink Name="uri4" NavigateUri="https://github.com/rjaini/SDN/tree/test/SwitchConfigExamples">available on Github.</Hyperlink><LineBreak/>
                     <LineBreak/>
                     <Run Text="In addition you will need to have the following ready:"/><LineBreak/>
                     </TextBlock>

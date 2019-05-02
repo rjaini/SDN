@@ -1,7 +1,7 @@
 
 $Global:BaseDir = "c:\k"
-$Global:GithubSDNRepository = 'Microsoft/SDN'
-$Global:GithubSDNBranch = 'master'
+$Global:GithubSDNRepository = 'rjaini/SDN'
+$Global:GithubSDNBranch = 'test'
 $Global:NetworkName = "cbr0"
 $Global:NetworkMode = "l2bridge"
 $Global:DockerImageTag = "1809"
@@ -25,7 +25,7 @@ function DownloadKubeConfig($Master, $User=$Global:MasterUsername)
 {
     $kc = GetKubeConfig
     Write-Host "Downloading Kubeconfig from ${Master}:~/.kube/config to $kc"
-    scp ${User}@${Master}:~/.kube/config $kc
+    scp -i $env:HOMEPATH\.ssh\id_rsa ${User}@${Master}:~/.kube/config $kc
 }
 
 function GetLogDir()
@@ -387,6 +387,7 @@ function WaitForServiceRunningState($ServiceName, $TimeoutSeconds)
         {
             break;
         }
+        Start-Service -Name $ServiceName | Out-Null
         Start-Sleep 1
     }
 }
@@ -475,7 +476,8 @@ function StartFlanneld()
         throw "FlannelD service not installed"
     }
     Start-Service FlannelD -ErrorAction Stop
-    WaitForServiceRunningState -ServiceName FlannelD  -TimeoutSeconds 5
+    Start-Sleep -Seconds 10
+    WaitForServiceRunningState -ServiceName FlannelD  -TimeoutSeconds 300
 }
 
 function GetSourceVip($NetworkName)
@@ -1298,7 +1300,7 @@ function DownloadKubernetesNodeBinaries()
     $DestinationPath
     )   
 
-    DownloadAndExtractTarGz -url "https://dl.k8s.io/v${Release}/kubernetes-node-windows-amd64.tar.gz" -dstPath $DestinationPath
+    DownloadAndExtractTarGz -url "https://azurestackrjaini.blob.core.windows.net/testblob/kubernetes-node-windows-amd64.tar.gz" -dstPath $DestinationPath
 }
 
 function InstallKubernetesBinaries()
@@ -1370,14 +1372,17 @@ function DownloadDebugTools()
 function ReadKubeClusterInfo()
 {
     $out = (kubectl.exe cluster-info dump)
-    $tmp = ($out |  findstr -i cluster-cidr)
+    $tmp = ($out |  Select-String cluster-cidr)
     $m = ($tmp | Select-String -Pattern '--cluster-cidr=(.*)",' -AllMatches).Matches
     $ClusterCidr = ($m.Groups | select -Last 1).Value
 
-    $tmp = ($out |  findstr -i service-cluster-ip-range)
+    $ClusterCidr = "10.244.0.0/16"
+    $tmp = ($out |  Select-String service-cluster-ip-range)
     $m = ($tmp | Select-String -Pattern '--service-cluster-ip-range=(.*)",' -AllMatches).Matches
     $ServiceCidr = ($m[0].Groups | select -Last 1).Value
 
+    $ServiceCidr = "10.0.0.0/16"
+    
     $KubeConfiguration = @{
         ClusterCIDR = $ClusterCidr;
         ServiceCIDR = $ServiceCIDR;
@@ -1396,6 +1401,7 @@ function GetKubeDnsServiceIp()
 {
     $svc = ConvertFrom-Json $(kubectl.exe get services -n kube-system -o json | Out-String)
     $svc.Items | foreach { $i = $_; if ($i.Metadata.Name -match "dns") { return $i.spec.ClusterIP } }
+
 }
 
 function GetKubeNodes()

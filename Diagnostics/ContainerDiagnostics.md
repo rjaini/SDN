@@ -12,7 +12,7 @@ Please see the table below for a curated history of workaround steps concerning 
  | Kubernetes service VIP access fails | **(Fixed in Windows Server, version 1709 only at this time)** <ul><li>Install Optional Update 4C (released April 19th)</li><li>Install KB4089848 (released March 22, 2018)</li><li>Configure a [DaemonSet](https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/) to always keep one normal (non-privileged) pod running</li></ul> | <= Windows Server, version 1709 |
 | When workload container is unstable and crashes, the network namespace is cleaned up | Redeploy any affected service(s) | <= Windows Server, version 1709 |
 |When Kubernetes node on which container is running becomes unavailable, DNS queries may fail resulting in a "negative cache entry" | Run the following _inside_ affected containers: <ul><li> `New-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Services\Dnscache\Parameters' -Name MaxCacheTtl -Value 0 -Type DWord`</li><li>`New-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Services\Dnscache\Parameters' -Name MaxNegativeCacheTtl -Value 0 -Type DWord`</li><li>`Restart-Service dnscache` </li></ul><br> If this still doesn't resolve the problem, then you may be forced to disable DNS caching completely as a **LAST RESORT**: <ul><li>`Set-Service dnscache -StartupType disabled`</li><li>`Stop-Service dnscache`</li></ul> | <= Windows Server, version 1709 |
-| On restart of a Kubernetes node, container outbound connectivity is lost | Run the following on the container host: <ul><li>`Stop-service kubeproxy`</li><li>`Stop-service kubelet`</li><li>`iwr https://raw.githubusercontent.com/Microsoft/SDN/master/Kubernetes/windows/hns.psm1 -useb -OutFile hns.psm1` and [import-module](https://docs.microsoft.com/en-us/powershell/module/Microsoft.PowerShell.Core/Import-Module)</li><li>`Get-HnsPolicyList \| Remove-HnsPolicyList`</li><li>`Get-HnsNetworks \| ? Name -eq <network-mode (eg: l2bridge)> \| Remove-HnsNetwork`</li><li>`Start-sevice kubelet`</li><li>`Start-service kubeproxy`</li> | = Windows Server, version 1709 |
+| On restart of a Kubernetes node, container outbound connectivity is lost | Run the following on the container host: <ul><li>`Stop-service kubeproxy`</li><li>`Stop-service kubelet`</li><li>`iwr https://raw.githubusercontent.com/rjaini/SDN/master/Kubernetes/windows/hns.psm1 -useb -OutFile hns.psm1` and [import-module](https://docs.microsoft.com/en-us/powershell/module/Microsoft.PowerShell.Core/Import-Module)</li><li>`Get-HnsPolicyList \| Remove-HnsPolicyList`</li><li>`Get-HnsNetworks \| ? Name -eq <network-mode (eg: l2bridge)> \| Remove-HnsNetwork`</li><li>`Start-sevice kubelet`</li><li>`Start-service kubeproxy`</li> | = Windows Server, version 1709 |
 | On restart of a Kubernetes node, Docker takes a long time to start  | Install KB 4093105. If the issue still occurs, run the following on the container host:<ul><li>Delete the HNS.data file located at `C:\Programdata\Microsoft\Windows\HNS\hns.data`</li><li>Restart HNS Service</li></ul> | = Windows Server, version 1709 |
 
 ## Current Windows Release (Windows Server, version 1803 and Windows 10 April 2018 Update)
@@ -29,10 +29,10 @@ Emerging technology such as containers isn't always perfect and despite our best
 
 Please make sure your encountered issue is not due to one of the platform gaps above. To keep tabs on our current platform roadmap, feel free to check out the [Windows K8s Roadmap](https://trello.com/b/rjTqrwjl/windows-k8s-roadmap).
 
-## 2. Run the [CollectLogs.ps1](https://github.com/Microsoft/SDN/blob/master/Kubernetes/windows/debug/collectlogs.ps1) PowerShell script
+## 2. Run the [CollectLogs.ps1](https://github.com/rjaini/SDN/blob/master/Kubernetes/windows/debug/collectlogs.ps1) PowerShell script
 The following script will compile diagnostics about your host network:
 ```
-iwr https://raw.githubusercontent.com/Microsoft/SDN/master/Kubernetes/windows/debug/collectlogs.ps1 -useb | iex
+iwr https://raw.githubusercontent.com/rjaini/SDN/master/Kubernetes/windows/debug/collectlogs.ps1 -useb | iex
 ```
 
 This will create a new directory with a randomly generated name. For example:

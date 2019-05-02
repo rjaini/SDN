@@ -26,7 +26,7 @@ function DumpConfigurationState()
    elseif ($Global:AuthType -eq "Kerberos")
    {
       # Requires this to special file to be downloaded onto this host from GitHub
-      # https://github.com/Microsoft/SDN/tree/master/Diagnostics/https://github.com/Microsoft/SDN/blob/master/Diagnostics/Debug-NetworkControllerConfigurationVMM.ps1
+      # https://github.com/rjaini/SDN/tree/master/Diagnostics/https://github.com/rjaini/SDN/blob/test/Diagnostics/Debug-NetworkControllerConfigurationVMM.ps1
       Debug-NetworkControllerConfigurationStateVmm -NcIpAddress $nc | Out-File $outputfile
    }
 }

@@ -158,7 +158,7 @@ function InstallNetworkPlugins()
 
 		kubectl apply -f $WorkingDir/kube-flannel.yml
 		kubectl get ds -n kube-system
-		wget https://raw.githubusercontent.com/Microsoft/SDN/master/Kubernetes/flannel/l2bridge/manifests/node-selector-patch.yml -P $WorkingDir
+		wget https://raw.githubusercontent.com/rjaini/SDN/test/Kubernetes/flannel/l2bridge/manifests/node-selector-patch.yml -P $WorkingDir
 		kubectl patch ds/kube-flannel-ds-amd64 --patch "$(cat $WorkingDir/node-selector-patch.yml)" -n=kube-system
 
 		;;

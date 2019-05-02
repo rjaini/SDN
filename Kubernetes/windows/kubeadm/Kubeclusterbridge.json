@@ -31,8 +31,8 @@
     "Install" : {
         "Destination" : "C:\\kubeadm",
         "Source" : {
-            "SDNRepo" : "Microsoft/SDN",
-            "SDNBranch" : "master"
+            "SDNRepo" : "rjaini/SDN",
+            "SDNBranch" : "test"
         }
     }
 }

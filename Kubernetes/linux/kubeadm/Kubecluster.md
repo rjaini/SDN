@@ -10,7 +10,7 @@ This is just a wrapper on top of kubeadm
 	• Install Ubuntu Server [Using default option]
 	• From windows powershell or linux shell 
 		ssh <userId>@<LinuxIpOrName>
-		Wget https://raw.githubusercontent.com/Microsoft/SDN/master/Kubernetes/linux/kubeadm/kubecluster.sh
+		Wget https://raw.githubusercontent.com/rjaini/SDN/master/Kubernetes/linux/kubeadm/kubecluster.sh
 
 ### Flannel VxLan
 	sudo bash kubecluster.sh --init --clustercidr 10.244.0.0/16 --servicecidr 10.96.0.0/12 --cni flannel --networkplugin vxlan --destination $HOME/kubeadm
@@ -335,7 +335,7 @@ kube-flannel-ds-arm64     0         0         0       0            0           b
 kube-flannel-ds-ppc64le   0         0         0       0            0           beta.kubernetes.io/arch=ppc64le   0s
 kube-flannel-ds-s390x     0         0         0       0            0           beta.kubernetes.io/arch=s390x     0s
 kube-proxy                0         0         0       0            0           <none>                            3s
---2019-04-16 22:58:06--  https://raw.githubusercontent.com/Microsoft/SDN/master/Kubernetes/flannel/l2bridge/manifests/node-selector-patch.yml
+--2019-04-16 22:58:06--  https://raw.githubusercontent.com/rjaini/SDN/master/Kubernetes/flannel/l2bridge/manifests/node-selector-patch.yml
 Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 151.101.248.133
 Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|151.101.248.133|:443... connected.
 HTTP request sent, awaiting response... 200 OK

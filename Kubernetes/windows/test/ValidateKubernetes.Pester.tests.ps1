@@ -30,7 +30,7 @@ Describe 'Basic Connectivity Tests' {
     Context 'Windows Connectivity' {
         BeforeAll {
             $Name = "win-webserver"
-            kubectl apply -f https://raw.githubusercontent.com/Microsoft/SDN/e1b7c4f59b8fa304db45494c1dcfd4c3cd77b531/Kubernetes/flannel/l2bridge/manifests/simpleweb.yml
+            kubectl apply -f https://raw.githubusercontent.com/rjaini/SDN/e1b7c4f59b8fa304db45494c1dcfd4c3cd77b531/Kubernetes/flannel/l2bridge/manifests/simpleweb.yml
             kubectl scale deployment $Name --replicas=4
             WaitForDeploymentCompletion -DeploymentName $Name
             $workloadContainers = GetContainers -DeploymentName $Name
@@ -41,7 +41,7 @@ Describe 'Basic Connectivity Tests' {
             $nodePort = (kubectl get services -o json | ConvertFrom-Json).items[1].spec.ports.nodePort
         }
         AfterAll {
-            kubectl delete -f https://raw.githubusercontent.com/Microsoft/SDN/e1b7c4f59b8fa304db45494c1dcfd4c3cd77b531/Kubernetes/flannel/l2bridge/manifests/simpleweb.yml
+            kubectl delete -f https://raw.githubusercontent.com/rjaini/SDN/e1b7c4f59b8fa304db45494c1dcfd4c3cd77b531/Kubernetes/flannel/l2bridge/manifests/simpleweb.yml
         }
     
         It 'should have more than 1 local container' {

@@ -21,7 +21,7 @@ Restart-Computer -Force
 mkdir C:\k
 ```
 
-#### 3. Download [start.ps1](https://github.com/Microsoft/SDN/raw/master/Kubernetes/flannel/start.ps1) into `C:\k` and do the following:
+#### 3. Download [start.ps1](https://github.com/rjaini/SDN/raw/master/Kubernetes/flannel/start.ps1) into `C:\k` and do the following:
   * Download [latest Kubernetes Windows binaries](https://github.com/kubernetes/kubernetes/releases/) (kubelet.exe, kubectl.exe, kube-proxy.exe) into `C:\k`
   * Download [latest flanneld.exe](https://github.com/coreos/flannel/releases/) into C:\k
   * Copy Kubeconfig file `$HOME/.kube/config` or `/etc/kubernetes/admin.conf` from Kubernetes Master and save as `config` into `C:\k`
@@ -41,7 +41,7 @@ Where:
 #### 5. Deploy an [example Windows service](./manifests/simpleweb.yml) (make sure container image matches host OS)
 
 ## Temp Binaries that will be removed soon
-There are several pending PRs, because of which the bins are published here. We are planning to transition to a new CNI repo separately from Microsoft/SDN.
+There are several pending PRs, because of which the bins are published here. We are planning to transition to a new CNI repo separately from rjaini/SDN.
 * cni\flannel.exe - 
 * cni\host-local.exe
 * cni\l2bridge.exe

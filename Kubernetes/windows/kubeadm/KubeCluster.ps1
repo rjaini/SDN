@@ -41,8 +41,8 @@ function ReadKubeclusterConfig($ConfigFile)
         $Global:ClusterConfiguration | Add-Member -MemberType NoteProperty -Name Install -Value @{ 
             Destination = "$env:HOMEDRIVE\$env:HOMEPATH\kubeadm";
             Source = @{
-                SDNRepo = "Microsoft/SDN";
-                SDNBranch = "master";
+                SDNRepo = "rjaini/SDN";
+                SDNBranch = "test";
             } 
         }
     }
@@ -50,8 +50,8 @@ function ReadKubeclusterConfig($ConfigFile)
     if (!$Global:ClusterConfiguration.Install.Source)
     {
         $Global:ClusterConfiguration.Install | Add-Member -MemberType NoteProperty -Name Source -Value @{ 
-            SDNRepo = "Microsoft/SDN"; 
-            SDNBranch = "master"; 
+            SDNRepo = "rjaini/SDN"; 
+            SDNBranch = "test"; 
         }
     }
 
@@ -116,8 +116,8 @@ if (!(Test-Path $BaseDir))
 {
     mkdir -p $BaseDir
 }
-$_GithubSDNRepository = 'Microsoft/SDN'
-$_GithubSDNBranch = "master"
+$_GithubSDNRepository = 'rjaini/SDN'
+$_GithubSDNBranch = "test"
 if ((Test-Path env:GITHUB_SDN_REPOSITORY) -and ($env:GITHUB_SDN_REPOSITORY -ne ''))
 {
     $_GithubSDNRepository = $env:GITHUB_SDN_REPOSITORY
