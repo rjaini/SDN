@@ -1300,7 +1300,8 @@ function DownloadKubernetesNodeBinaries()
     $DestinationPath
     )   
 
-    DownloadAndExtractTarGz -url "https://azurestackrjaini.blob.core.windows.net/testblob/kubernetes-node-windows-amd64.tar.gz" -dstPath $DestinationPath
+    #DownloadAndExtractTarGz -url "https://azurestackrjaini.blob.core.windows.net/testblob/kubernetes-node-windows-amd64.tar.gz" -dstPath $DestinationPath
+    DownloadAndExtractTarGz -url "https://dl.k8s.io/v${Release}/kubernetes-node-windows-amd64.tar.gz" -dstPath $DestinationPath
 }
 
 function InstallKubernetesBinaries()
